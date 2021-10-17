@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -33,14 +34,26 @@ public class gui extends Thread {
         Container cp = jf.getContentPane();
         cp.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));// 居左
 
+        JLabel texta=new JLabel("MAX"); 
         // 最大值输入文本框
         max.setPreferredSize(new Dimension(100, 35));
-        max.setColumns(32);
+        max.setColumns(16);
 
+        JLabel texti=new JLabel("MIN"); 
         // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
-        min.setColumns(32);// 文本框最多可显示内容的列数
+        min.setColumns(16);// 文本框最多可显示内容的列数
+
+        // 占位的按钮(换行用)
+        JButton b = new JButton("     ");
+        b.setContentAreaFilled(false);
+        b.setBorderPainted(false);
+        b.setEnabled(false);
+
+        cp.add(texta);
         cp.add(max);
+        cp.add(b);
+        cp.add(texti);
         cp.add(min);
 
         // 滑块
