@@ -11,8 +11,8 @@ public class crot extends Thread {
     static Robot robot;
 
     public static void start(int imax, int imin) {
-        System.out.println("max " + imax);
-        System.out.println("min " + imin);
+        System.out.println("max " + imax + "ms");
+        System.out.println("min " + imin + "ms");
         smax = imax;
         smin = imin;
         robotxc.run();

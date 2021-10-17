@@ -1,8 +1,10 @@
-## Getting Started
+#CLICK
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## 简介
 
-## Folder Structure
+欢迎使用我制作的这款连点器，这是我第一个公开发布的Java项目。我是初学者，感谢支持。
+
+## 如何使用?
 
 The workspace contains two folders by default, where:
 
