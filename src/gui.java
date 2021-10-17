@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
 public class gui extends Thread {
+    // 判断str是否是非零非负数
     public static boolean isNumeric(String str) {
         // 原表达式 ^[1-9][0-9]*(\.\d+)?$
         Pattern pattern = Pattern.compile("^[1-9][0-9]*(\\.\\d+)?$");
@@ -24,17 +25,19 @@ public class gui extends Thread {
 
     public void run() {
         JFrame jf = new JFrame("连点器");
-        jf.setSize(300, 400);
+        jf.setSize(230, 300);// 窗体大小
         jf.setLocationRelativeTo(null); // 设置窗体居中
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
 
         Container cp = jf.getContentPane();
-        cp.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
+        cp.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));// 居左
 
+        // 最大值输入文本框
         max.setPreferredSize(new Dimension(100, 35));
         max.setColumns(32);
 
+        // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
         min.setColumns(32);// 文本框最多可显示内容的列数
         cp.add(max);
@@ -49,16 +52,18 @@ public class gui extends Thread {
         slider.setPaintTicks(true);
         cp.add(slider);
 
+        // 占位的按钮(换行用)
         JButton c = new JButton("          " + "      ");
         c.setContentAreaFilled(false);
         c.setBorderPainted(false);
         c.setEnabled(false);
         cp.add(c);
 
+        // 添加按钮及按钮事件
         cp.add(cbutton);
         cbutton.addActionListener((e) -> {
             if (ssarop) {
-                ssarop = false;
+                ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(true);
                 min.setEditable(true);
                 int amount = crot.cstop();
@@ -71,18 +76,19 @@ public class gui extends Thread {
             }
         });
 
-        jf.setVisible(true);
+        jf.setVisible(true);// 显示界面
     }
 
+    // 按钮事件--是否要开始判断
     public void cbutton(String nmax, String nmin) {
         if (isNumeric(nmax) && isNumeric(nmin)) {
-            int getmax = Integer.parseInt(nmax);
+            int getmax = Integer.parseInt(nmax);// 强制将String转为int
             int getmin = Integer.parseInt(nmin);
-            int imax = 1000 / getmax;
+            int imax = 1000 / getmax;// 获得间隔的毫秒数
             int imin = 1000 / getmin;
             if (imax < imin) {
-                ssarop = true;
-                max.setEditable(false);
+                ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
+                max.setEditable(false);// 禁止文本输入框改变文本
                 min.setEditable(false);
                 crot.start(imax, imin);
                 cbutton.setText("停止");

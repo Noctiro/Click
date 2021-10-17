@@ -15,14 +15,14 @@ public class crot extends Thread {
         System.out.println("min " + imin + "ms");
         smax = imax;
         smin = imin;
-        robotxc.run();
+        robotxc.run();// 启动进程
     }
 
     public static int cstop() {
-        robotxc.interrupt();
+        robotxc.interrupt();// 停止进程
         int toamount = amount;
-        amount = 0;
-        return toamount;
+        amount = 0;// 计数器清零
+        return toamount;// 返回值
     }
 
     public void run() {
@@ -33,12 +33,12 @@ public class crot extends Thread {
         }
         Random r = new Random();
         while (true) {
-            int rdelay = r.nextInt(smin - smax) + smax;
-            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            amount = amount + 1;
+            int rdelay = r.nextInt(smin - smax) + smax;// 最大值为smin 最小值为smax 之间的随机数
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);// 按下左键
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);// 松开左键
+            amount = amount + 1;// 计数器
             System.out.print("-" + rdelay);
-            robot.delay(rdelay);
+            robot.delay(rdelay);// 间隔时间, 使用上面获得的随机数
         }
     }
 }
