@@ -57,8 +57,9 @@ public class gui extends Thread {
         cp.add(min);
 
         // 滑块
+        // 改动的概率
         // slider.getValue() 从 BoundedRangeModel 返回滑块的当前值
-        slider.setValue(25);
+        slider.setValue(90);
         slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);
@@ -97,7 +98,7 @@ public class gui extends Thread {
         if (isNumeric(nmax) && isNumeric(nmin)) {
             int getmax = Integer.parseInt(nmax);// 强制将String转为int
             int getmin = Integer.parseInt(nmin);
-            int probability = slider.getValue();
+            int probability = 100 - slider.getValue();
             int imax = 1000 / getmax;// 获得间隔的毫秒数
             int imin = 1000 / getmin;
             if (imax < imin) {
