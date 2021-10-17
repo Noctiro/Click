@@ -34,12 +34,12 @@ public class gui extends Thread {
         Container cp = jf.getContentPane();
         cp.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));// 居左
 
-        JLabel texta=new JLabel("MAX"); 
+        JLabel texta = new JLabel("MAX");
         // 最大值输入文本框
         max.setPreferredSize(new Dimension(100, 35));
         max.setColumns(16);
 
-        JLabel texti=new JLabel("MIN"); 
+        JLabel texti = new JLabel("MIN");
         // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
         min.setColumns(16);// 文本框最多可显示内容的列数
@@ -58,7 +58,7 @@ public class gui extends Thread {
 
         // 滑块
         // slider.getValue() 从 BoundedRangeModel 返回滑块的当前值
-        slider.setValue(50);
+        slider.setValue(25);
         slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);
