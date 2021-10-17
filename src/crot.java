@@ -43,13 +43,13 @@ public class crot extends Thread {
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);// 按下左键
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);// 松开左键
                 amount = amount + 1;// 计数器
-                System.out.println("-"+rdelay);
+                System.out.print("-"+rdelay);
                 robot.delay(rdelay);// 间隔时间, 使用上面获得的随机数
             } else {
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);// 按下左键
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);// 松开左键
                 amount = amount + 1;// 计数器
-                System.out.println("-"+np);
+                System.out.print("-"+np);
                 robot.delay(np);// 间隔时间, 使用上面获得的随机数
             }
         }
