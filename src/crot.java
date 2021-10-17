@@ -1,7 +1,7 @@
-import java.awt.AWTException;
 import java.awt.Robot;
-import java.awt.event.InputEvent;
 import java.util.Random;
+import java.awt.AWTException;
+import java.awt.event.InputEvent;
 
 public class crot extends Thread {
     static int smax;

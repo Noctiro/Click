@@ -3,11 +3,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.regex.Pattern;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JSlider;
+import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 public class gui extends Thread {
     public static boolean isNumeric(String str) {
