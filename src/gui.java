@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
@@ -39,22 +41,33 @@ public class gui extends Thread {
         max.setPreferredSize(new Dimension(100, 35));
         max.setColumns(16);
 
+        JComboBox<String> maxjcb = new JComboBox<String>();
+        maxjcb.addItem("CPS");
+        maxjcb.addItem("MS");
+        maxjcb.setEditable(false);
+
         JLabel texti = new JLabel("MIN");
         // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
         min.setColumns(16);// 文本框最多可显示内容的列数
 
+        JComboBox<String> minjcb = new JComboBox<String>();
+        minjcb.addItem("CPS");
+        minjcb.addItem("MS");
+        minjcb.setEditable(false);
+
         // 占位的按钮(换行用)
-        JButton b = new JButton("     ");
+        JButton b = new JButton("");
         b.setContentAreaFilled(false);
         b.setBorderPainted(false);
         b.setEnabled(false);
 
         cp.add(texta);
         cp.add(max);
-        cp.add(b);
+        cp.add(maxjcb);
         cp.add(texti);
         cp.add(min);
+        cp.add(minjcb);
 
         // 滑块
         // 改动的概率
@@ -86,7 +99,9 @@ public class gui extends Thread {
             } else {
                 String amax = max.getText();
                 String amin = min.getText();
-                cbutton(amax, amin);
+                String smaxjcb=(String)maxjcb.getSelectedItem();
+                String sminjcb=(String)minjcb.getSelectedItem();
+                cbutton(amax, amin, smaxjcb, sminjcb);
             }
         });
 
@@ -94,13 +109,30 @@ public class gui extends Thread {
     }
 
     // 按钮事件--是否要开始判断
-    public void cbutton(String nmax, String nmin) {
+    public void cbutton(String nmax, String nmin, String maxjcb, String minjcb) {
         if (isNumeric(nmax) && isNumeric(nmin)) {
+            int tif = 0;//满足数
+            int imax;
+            int imin;
             int getmax = Integer.parseInt(nmax);// 强制将String转为int
             int getmin = Integer.parseInt(nmin);
-            int probability = 100 - slider.getValue();
-            int imax = 1000 / getmax;// 获得间隔的毫秒数
-            int imin = 1000 / getmin;
+            int probability = 100 - slider.getValue();//改变间隔的概率
+
+            //单位转换
+            if (maxjcb == "CPS") {
+                imax = 1000 / getmax;// 获得间隔的毫秒数
+                tif++;
+            } else if (maxjcb == "MS") {
+                imax = getmax;
+                tif++;
+            }
+            if (minjcb == "CPS") {
+                imin = 1000 / getmin;
+                tif++;
+            } else if (minjcb == "MS") {
+                imin = getmin;
+                tif++;
+            }
             if (imax < imin) {
                 ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(false);// 禁止文本输入框改变文本
