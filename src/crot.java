@@ -23,6 +23,7 @@ public class crot extends Thread {
 
     public static int cstop() {
         robotxc.interrupt();// 停止进程
+        System.gc();
         int toamount = amount;
         amount = 0;// 计数器清零
         return toamount;// 返回值
