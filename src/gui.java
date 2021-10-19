@@ -19,7 +19,7 @@ public class gui extends JFrame {
     static Boolean ssarop = false;// 开始/结束 判断
 
     public static void startgui() {
-        JFrame jf = new JFrame("连点器");
+        JFrame jf = new JFrame("CLICK");
         jf.setSize(230, 300);// 窗体大小
         jf.setLocationRelativeTo(null); // 设置窗体居中
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
