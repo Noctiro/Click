@@ -33,11 +33,11 @@ public class gui extends JFrame {
         // HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
-        gbc.insets = new Insets(2, 5, 2, 5);// 设置组件左侧和右侧的最小距离  
+        gbc.insets = new Insets(2, 5, 2, 5);// 设置组件左侧和右侧的最小距离
 
         JLabel texta = new JLabel("MAX");
-        gbc.weightx = 10;// 第一列的分布方式为10%  
-        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.weightx = 10;// 第一列的分布方式为10%
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -63,8 +63,8 @@ public class gui extends JFrame {
         cp.setConstraints(maxjcb, gbc);
 
         JLabel texti = new JLabel("MIN");
-        gbc.weightx = 10;// 分布方式为10%  
-        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.weightx = 10;// 分布方式为10%
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -97,7 +97,7 @@ public class gui extends JFrame {
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);
         slider.setPaintTicks(true);
-        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 5;
