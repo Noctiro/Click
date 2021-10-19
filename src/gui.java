@@ -20,7 +20,7 @@ public class gui extends JFrame {
 
     public static void startgui() {
         JFrame jf = new JFrame("CLICK");
-        jf.setSize(230, 300);// 窗体大小
+        jf.setSize(230, 210);// 窗体大小
         jf.setLocationRelativeTo(null); // 设置窗体居中
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
@@ -33,9 +33,9 @@ public class gui extends JFrame {
         // HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
+        gbc.insets = new Insets(2, 5, 2, 5);// 设置组件左侧和右侧的最小距离  
 
         JLabel texta = new JLabel("MAX");
-        gbc.insets = new Insets(0, 5, 0, 5);// 设置组件左侧和右侧的最小距离  
         gbc.weightx = 10;// 第一列的分布方式为10%  
         gbc.fill = GridBagConstraints.HORIZONTAL; 
         gbc.gridx = 0;
@@ -63,7 +63,6 @@ public class gui extends JFrame {
         cp.setConstraints(maxjcb, gbc);
 
         JLabel texti = new JLabel("MIN");
-        gbc.insets = new Insets(0, 5, 0, 5);// 设置组件左侧和右侧的最小距离  
         gbc.weightx = 10;// 分布方式为10%  
         gbc.fill = GridBagConstraints.HORIZONTAL; 
         gbc.gridx = 0;
