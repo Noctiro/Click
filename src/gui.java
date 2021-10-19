@@ -1,6 +1,5 @@
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,33 +24,33 @@ public class gui extends Thread {
         jf.setResizable(true);// 禁止修改大小
 
         Container cp = jf.getContentPane();
-        cp.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));// 居左
+        cp.setLayout(null);// 绝对布局
 
         JLabel texta = new JLabel("MAX");
+        texta.setBounds(10, 10, 30, 30);// x, y, 宽, 高
         // 最大值输入文本框
         max.setPreferredSize(new Dimension(100, 35));
         max.setColumns(16);
+        max.setBounds(40, 10, 100, 30);// x, y, 宽, 高 
 
         JComboBox<String> maxjcb = new JComboBox<String>();
         maxjcb.addItem("CPS");
         maxjcb.addItem("MS");
         maxjcb.setEditable(false);
+        maxjcb.setBounds(150, 15, 50, 20);// x, y, 宽, 高 
 
         JLabel texti = new JLabel("MIN");
+        texti.setBounds(10, 50, 30, 30);
         // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
         min.setColumns(16);// 文本框最多可显示内容的列数
+        min.setBounds(40, 50, 100, 30);// x, y, 宽, 高 
 
         JComboBox<String> minjcb = new JComboBox<String>();
         minjcb.addItem("CPS");
         minjcb.addItem("MS");
         minjcb.setEditable(false);
-
-        // 占位的按钮(换行用)
-        JButton b = new JButton("");
-        b.setContentAreaFilled(false);
-        b.setBorderPainted(false);
-        b.setEnabled(false);
+        minjcb.setBounds(150, 55, 50, 20);// x, y, 宽, 高 
 
         cp.add(texta);
         cp.add(max);
@@ -68,16 +67,11 @@ public class gui extends Thread {
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);
         slider.setPaintTicks(true);
+        slider.setBounds(5, 90, 200, 50);// x, y, 宽, 高 
         cp.add(slider);
 
-        // 占位的按钮(换行用)
-        JButton c = new JButton("          " + "      ");
-        c.setContentAreaFilled(false);
-        c.setBorderPainted(false);
-        c.setEnabled(false);
-        cp.add(c);
-
         // 添加按钮及按钮事件
+        cbutton.setBounds(130, 150, 60, 30);// x, y, 宽, 高 
         cp.add(cbutton);
         cbutton.addActionListener((e) -> {
             if (ssarop) {
@@ -90,8 +84,8 @@ public class gui extends Thread {
             } else {
                 String amax = max.getText();
                 String amin = min.getText();
-                String smaxjcb=(String)maxjcb.getSelectedItem();
-                String sminjcb=(String)minjcb.getSelectedItem();
+                String smaxjcb = (String) maxjcb.getSelectedItem();
+                String sminjcb = (String) minjcb.getSelectedItem();
                 cbutton(amax, amin, smaxjcb, sminjcb);
             }
         });
@@ -107,15 +101,17 @@ public class gui extends Thread {
         if (nmax.matches(regex) && nmin.matches(regex)) {
             int getmax = Integer.parseInt(nmax);// 强制将String转为int
             int getmin = Integer.parseInt(nmin);
-            int probability = 100 - slider.getValue();//改变间隔的概率
+            int probability = 100 - slider.getValue();// 改变间隔的概率
 
-            //单位转换
+            // 单位转换
             if (maxjcb == "CPS") {
                 getmax = 1000 / getmax;// 获得间隔的毫秒数
-            } else if (maxjcb == "MS") {}
+            } else if (maxjcb == "MS") {
+            }
             if (minjcb == "CPS") {
                 getmin = 1000 / getmin;
-            } else if (minjcb == "MS") {}
+            } else if (minjcb == "MS") {
+            }
             if (getmax < getmin) {
                 ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(false);// 禁止文本输入框改变文本
