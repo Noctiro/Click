@@ -1,5 +1,7 @@
-import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,70 +11,106 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
-public class gui extends Thread {
-    static JButton cbutton = new JButton("确定");
-    static final JTextField max = new JTextField("最大值");
-    static final JTextField min = new JTextField("最小值");
-    static JSlider slider = new JSlider(0, 100);
-    static Boolean ssarop = false;
+public class gui extends JFrame {
+    static JButton cbutton = new JButton("确定");// 开始/结束 按钮
+    static final JTextField max = new JTextField();// 最大值输入框
+    static final JTextField min = new JTextField();// 最小值输入框
+    static JSlider slider = new JSlider(0, 100);// 概率滑块
+    static Boolean ssarop = false;// 开始/结束 判断
 
-    public void run() {
+    public static void startgui() {
         JFrame jf = new JFrame("连点器");
         jf.setSize(230, 300);// 窗体大小
         jf.setLocationRelativeTo(null); // 设置窗体居中
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
 
-        Container cp = jf.getContentPane();
-        cp.setLayout(null);// 绝对布局
+        // GridLayout
+        GridBagLayout cp = new GridBagLayout(); // 实例化布局对象
+        jf.setLayout(cp); // jf窗体对象设置为GridBagLayout布局
+        GridBagConstraints gbc = new GridBagConstraints();// 实例化这个对象用来对组件进行管理
+        // NONE：不调整组件大小。
+        // HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
+        // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
+        // BOTH：使组件完全填满其显示区域。
 
         JLabel texta = new JLabel("MAX");
-        texta.setBounds(10, 10, 30, 30);// x, y, 宽, 高
+        gbc.insets = new Insets(0, 5, 0, 5);// 设置组件左侧和右侧的最小距离  
+        gbc.weightx = 10;// 第一列的分布方式为10%  
+        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        cp.setConstraints(texta, gbc);
         // 最大值输入文本框
         max.setPreferredSize(new Dimension(100, 35));
         max.setColumns(16);
-        max.setBounds(40, 10, 100, 30);// x, y, 宽, 高 
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        cp.setConstraints(max, gbc);
 
         JComboBox<String> maxjcb = new JComboBox<String>();
         maxjcb.addItem("CPS");
         maxjcb.addItem("MS");
         maxjcb.setEditable(false);
-        maxjcb.setBounds(150, 15, 50, 20);// x, y, 宽, 高 
+        gbc.gridx = 4;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        cp.setConstraints(maxjcb, gbc);
 
         JLabel texti = new JLabel("MIN");
-        texti.setBounds(10, 50, 30, 30);
+        gbc.insets = new Insets(0, 5, 0, 5);// 设置组件左侧和右侧的最小距离  
+        gbc.weightx = 10;// 分布方式为10%  
+        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        cp.setConstraints(texti, gbc);
         // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
         min.setColumns(16);// 文本框最多可显示内容的列数
-        min.setBounds(40, 50, 100, 30);// x, y, 宽, 高 
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        cp.setConstraints(min, gbc);
 
         JComboBox<String> minjcb = new JComboBox<String>();
         minjcb.addItem("CPS");
         minjcb.addItem("MS");
         minjcb.setEditable(false);
-        minjcb.setBounds(150, 55, 50, 20);// x, y, 宽, 高 
-
-        cp.add(texta);
-        cp.add(max);
-        cp.add(maxjcb);
-        cp.add(texti);
-        cp.add(min);
-        cp.add(minjcb);
+        gbc.gridx = 4;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        cp.setConstraints(minjcb, gbc);
 
         // 滑块
         // 改动的概率
         // slider.getValue() 从 BoundedRangeModel 返回滑块的当前值
-        slider.setValue(90);
+        slider.setValue(95);
         slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);
         slider.setPaintTicks(true);
-        slider.setBounds(5, 90, 200, 50);// x, y, 宽, 高 
-        cp.add(slider);
+        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 5;
+        gbc.gridheight = 1;
+        cp.setConstraints(slider, gbc);
 
-        // 添加按钮及按钮事件
-        cbutton.setBounds(130, 150, 60, 30);// x, y, 宽, 高 
-        cp.add(cbutton);
+        // 按钮及按钮事件
+        gbc.gridx = 4;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        cp.setConstraints(cbutton, gbc);
         cbutton.addActionListener((e) -> {
             if (ssarop) {
                 ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
@@ -90,11 +128,20 @@ public class gui extends Thread {
             }
         });
 
+        jf.add(texta);
+        jf.add(max);
+        jf.add(maxjcb);
+        jf.add(texti);
+        jf.add(min);
+        jf.add(minjcb);
+        jf.add(slider);
+        jf.add(cbutton);
+
         jf.setVisible(true);// 显示界面
     }
 
     // 按钮事件--是否要开始判断
-    protected void cbutton(String nmax, String nmin, String maxjcb, String minjcb) {
+    protected static void cbutton(String nmax, String nmin, String maxjcb, String minjcb) {
         // 判断是否是非零非负数
         // 原表达式 ^[1-9][0-9]*(\.\d+)?$
         String regex = "^[1-9][0-9]*(\\.\\d+)?$";
@@ -124,9 +171,5 @@ public class gui extends Thread {
         } else {
             JOptionPane.showMessageDialog(null, "请核对你输入的数值是否正确", "错误", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public static void createwindow() {
-        new gui().start();
     }
 }

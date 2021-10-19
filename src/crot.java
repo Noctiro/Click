@@ -19,6 +19,7 @@ public class crot extends Thread {
         smin = imin;
         probability = aprobability;
         robotxc.run();// 启动进程
+        return;
     }
 
     public static int cstop() {
