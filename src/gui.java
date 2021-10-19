@@ -33,7 +33,7 @@ public class gui extends JFrame {
         // HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
-        gbc.insets = new Insets(2, 5, 2, 5);// 设置组件左侧和右侧的最小距离
+        gbc.insets = new Insets(2, 5, 2, 5);// top left bottom right
 
         JLabel texta = new JLabel("MAX");
         gbc.weightx = 10;// 第一列的分布方式为10%
