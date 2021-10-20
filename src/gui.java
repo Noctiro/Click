@@ -122,13 +122,14 @@ public class gui extends JFrame {
         cp.setConstraints(cbutton, gbc);
         cbutton.addActionListener((e) -> {
             if (ssarop) {
-                information.setText("关闭中......");
+                information.setText("关闭中");
+                int amount = crot.cstop();
                 ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(true);
                 min.setEditable(true);
-                int amount = crot.cstop();
-                information.setText("这次点击了 " + amount + " 下");
-                System.out.println("\n这次点击了 " + amount + " 下");
+                information.setText("此次共点击 " + amount + " 下");
+                System.out.println("\n此次共点击 " + amount + " 下");
+                System.out.println("---------");
                 cbutton.setText("开始");
             } else {
                 String amax = max.getText();
@@ -172,11 +173,11 @@ public class gui extends JFrame {
             } else if (minjcb == "MS") {
             }
             if (getmax < getmin) {
-                information.setText("倒计时 3 秒");
                 ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(false);// 禁止文本输入框改变文本
                 min.setEditable(false);
                 try {
+                    information.setText("倒计时 3 秒");
                     Thread.sleep(1000);
                     information.setText("倒计时 2 秒");
                     Thread.sleep(1000);
