@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Created-By: 16.0.2 (Eclipse Foundation)
+Main-Class: App

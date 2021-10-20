@@ -17,6 +17,7 @@ public class gui extends JFrame {
     static final JTextField min = new JTextField();// 最小值输入框
     static JSlider slider = new JSlider(0, 100);// 概率滑块
     static Boolean ssarop = false;// 开始/结束 判断
+    static JLabel information = new JLabel("");
 
     public static void startgui() {
         JFrame jf = new JFrame("CLICK");
@@ -104,6 +105,15 @@ public class gui extends JFrame {
         gbc.gridheight = 1;
         cp.setConstraints(slider, gbc);
 
+        // 信息窗
+        gbc.weightx = 10;// 分布方式为10%
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 3;
+        gbc.gridheight = 1;
+        cp.setConstraints(information, gbc);
+
         // 按钮及按钮事件
         gbc.gridx = 4;
         gbc.gridy = 6;
@@ -112,11 +122,13 @@ public class gui extends JFrame {
         cp.setConstraints(cbutton, gbc);
         cbutton.addActionListener((e) -> {
             if (ssarop) {
+                information.setText("关闭中......");
                 ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(true);
                 min.setEditable(true);
                 int amount = crot.cstop();
-                System.out.println("这次点击了 " + amount);
+                information.setText("这次点击了 " + amount + " 下");
+                System.out.println("\n这次点击了 " + amount + " 下");
                 cbutton.setText("开始");
             } else {
                 String amax = max.getText();
@@ -134,6 +146,7 @@ public class gui extends JFrame {
         jf.add(min);
         jf.add(minjcb);
         jf.add(slider);
+        jf.add(information);
         jf.add(cbutton);
 
         jf.setVisible(true);// 显示界面
@@ -159,10 +172,25 @@ public class gui extends JFrame {
             } else if (minjcb == "MS") {
             }
             if (getmax < getmin) {
+                information.setText("倒计时 3 秒");
                 ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(false);// 禁止文本输入框改变文本
                 min.setEditable(false);
-                crot.start(getmax, getmin, probability);
+                try {
+                    Thread.sleep(1000);
+                    information.setText("倒计时 2 秒");
+                    Thread.sleep(1000);
+                    information.setText("倒计时 1 秒");
+                    Thread.sleep(1000);
+                    information.setText("连点器已开启");
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    crot.start(getmax, getmin, probability);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 cbutton.setText("停止");
             } else {
                 JOptionPane.showMessageDialog(null, "请核对你输入的最大值和最小值", "错误", JOptionPane.ERROR_MESSAGE);

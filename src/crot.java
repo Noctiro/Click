@@ -12,18 +12,18 @@ public class crot extends Thread {
     static Thread robotxc = new Thread(new crot());
     static Robot robot;
 
-    public static void start(int imax, int imin, int aprobability) {
+    public static void start(int imax, int imin, int aprobability) throws InterruptedException {
         System.out.println("max " + imax + "ms");
         System.out.println("min " + imin + "ms");
         smax = imax;
         smin = imin;
         probability = aprobability;
-        robotxc.run();// 启动进程
-        return;
+        robotxc.start();// 启动进程
+        robotxc.join(1);
     }
 
     public static int cstop() {
-        robotxc.interrupt();// 停止进程
+        robotxc.stop();// 停止进程
         System.gc();
         int toamount = amount;
         amount = 0;// 计数器清零
@@ -39,7 +39,7 @@ public class crot extends Thread {
         Random r = new Random();
         while (true) {
             int pbi = r.nextInt(101) + 1;
-            if (pbi <= probability) {
+            if (pbi != 0 && pbi <= probability) {
                 int rdelay = r.nextInt(smin - smax) + smax;// 最大值为smin 最小值为smax 之间的随机数
                 np = rdelay;
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);// 按下左键
@@ -47,7 +47,7 @@ public class crot extends Thread {
                 amount = amount + 1;// 计数器
                 System.out.print("-" + rdelay);
                 robot.delay(rdelay);// 间隔时间, 使用上面获得的随机数
-            } else {
+            } else if (pbi != 0 && pbi > probability) {
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);// 按下左键
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);// 松开左键
                 amount = amount + 1;// 计数器
