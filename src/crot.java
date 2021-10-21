@@ -10,7 +10,6 @@ public class crot extends Thread {
     static int np;
     static int probability;
     static int amount = 0;
-    static Thread robotxc = new Thread(new crot());
     static Robot robot;
 
     public static void start(int imax, int imin, int aprobability) throws InterruptedException {
@@ -21,21 +20,9 @@ public class crot extends Thread {
         smax = imax;
         smin = imin;
         probability = aprobability;
-        robotxc.start();// 启动进程
-        robotxc.join(1);
         sors = true;
-    }
 
-    public static int cstop() {
-        sors = false;
-        robotxc.interrupt();// 停止进程
-        System.gc();
-        int toamount = amount;
-        amount = 0;// 计数器清零
-        return toamount;// 返回值
-    }
-
-    public void run() {
+        // robot
         try {
             robot = new Robot();
         } catch (AWTException e) {
@@ -62,5 +49,13 @@ public class crot extends Thread {
                 gui.information.setText("NOW: " + np + " ms (" + smin + "-" + smax + ")");
             }
         }
+    }
+
+    public static int cstop() {
+        sors = false;
+        System.gc();
+        int toamount = amount;
+        amount = 0;// 计数器清零
+        return toamount;// 返回值
     }
 }

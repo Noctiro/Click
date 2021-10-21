@@ -11,15 +11,23 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
-public class gui extends JFrame {
+public class gui extends JFrame implements Runnable {
     static JButton cbutton = new JButton("确定");// 开始/结束 按钮
     static final JTextField max = new JTextField();// 最大值输入框
     static final JTextField min = new JTextField();// 最小值输入框
     static JSlider slider = new JSlider(0, 100);// 概率滑块
     static Boolean ssarop = false;// 开始/结束 判断
     static JLabel information = new JLabel("");
+    static Thread robot = new Thread(new gui());
+
+    static boolean asors = false; // 控制 开/关
+    static int getmax;
+    static int getmin;
+    static int probability;
 
     public static void startgui() {
+        robot.start();// 启动进程
+
         JFrame jf = new JFrame("CLICK");
         jf.setSize(230, 210);// 窗体大小
         jf.setLocationRelativeTo(null); // 设置窗体居中
@@ -122,9 +130,9 @@ public class gui extends JFrame {
         cp.setConstraints(cbutton, gbc);
         cbutton.addActionListener((e) -> {
             if (ssarop) {
+                ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
                 information.setText("关闭中");
                 int amount = crot.cstop();
-                ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(true);
                 min.setEditable(true);
                 information.setText("此次共点击 " + amount + " 下");
@@ -159,9 +167,9 @@ public class gui extends JFrame {
         // 原表达式 ^[1-9][0-9]*(\.\d+)?$
         String regex = "^[1-9][0-9]*(\\.\\d+)?$";
         if (nmax.matches(regex) && nmin.matches(regex)) {
-            int getmax = Integer.parseInt(nmax);// 强制将String转为int
-            int getmin = Integer.parseInt(nmin);
-            int probability = 100 - slider.getValue();// 改变间隔的概率
+            getmax = Integer.parseInt(nmax);// 强制将String转为int
+            getmin = Integer.parseInt(nmin);
+            probability = 100 - slider.getValue();// 改变间隔的概率
 
             // 单位转换
             if (maxjcb == "CPS") {
@@ -187,17 +195,24 @@ public class gui extends JFrame {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-                try {
-                    crot.start(getmax, getmin, probability);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                asors = true;
                 cbutton.setText("停止");
             } else {
                 JOptionPane.showMessageDialog(null, "请核对你输入的最大值和最小值", "错误", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "请核对你输入的数值是否正确", "错误", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void run() {
+        for (; asors;) {
+            try {
+                crot.start(getmax, getmin, probability);
+                asors = false;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
