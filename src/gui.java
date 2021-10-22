@@ -5,6 +5,9 @@ import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JSlider;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,7 +36,7 @@ public class gui extends JFrame implements Runnable {
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
 
-        // GridLayout
+        // GridBagLayout
         GridBagLayout cp = new GridBagLayout(); // 实例化布局对象
         jf.setLayout(cp); // jf窗体对象设置为GridBagLayout布局
         GridBagConstraints gbc = new GridBagConstraints();// 实例化这个对象用来对组件进行管理
@@ -41,11 +44,32 @@ public class gui extends JFrame implements Runnable {
         // HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
+        
+        //gridx设置为GridBagConstraints.RELATIVE代表此组件位于之前所加入组件的右边
+        //gridy设置为GridBagConstraints.RELATIVE代表此组件位于以前所加入组件的下面
+        
+        /*// 创建菜单栏
+        JMenuBar menuBar = new JMenuBar();
+        // 创建一级菜单
+        JMenu optionMenu = new JMenu("选项");
+        JMenu aboutMenu = new JMenu("关于");
+        // 一级菜单添加到菜单栏
+        menuBar.add(optionMenu);
+        menuBar.add(aboutMenu);
+        gbc.insets = new Insets(0, 0, 0, 0);// top left bottom right
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;// 占据本行的所有剩余空间
+        gbc.gridheight = 1;
+        // jf.add(menuBar);*/
+        
         gbc.insets = new Insets(2, 5, 2, 5);// top left bottom right
 
         JLabel texta = new JLabel("MAX");
         gbc.weightx = 10;// 第一列的分布方式为10%
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -54,9 +78,9 @@ public class gui extends JFrame implements Runnable {
         // 最大值输入文本框
         max.setPreferredSize(new Dimension(100, 35));
         max.setColumns(16);
-        gbc.gridx = 1;
+        gbc.gridx = GridBagConstraints.RELATIVE;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.gridheight = 1;
         cp.setConstraints(max, gbc);
 
@@ -64,7 +88,7 @@ public class gui extends JFrame implements Runnable {
         maxjcb.addItem("CPS");
         maxjcb.addItem("MS");
         maxjcb.setEditable(false);
-        gbc.gridx = 4;
+        gbc.gridx = GridBagConstraints.RELATIVE;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
@@ -72,7 +96,7 @@ public class gui extends JFrame implements Runnable {
 
         JLabel texti = new JLabel("MIN");
         gbc.weightx = 10;// 分布方式为10%
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -81,9 +105,9 @@ public class gui extends JFrame implements Runnable {
         // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
         min.setColumns(16);// 文本框最多可显示内容的列数
-        gbc.gridx = 1;
+        gbc.gridx = GridBagConstraints.RELATIVE;
         gbc.gridy = 1;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.gridheight = 1;
         cp.setConstraints(min, gbc);
 
@@ -91,7 +115,7 @@ public class gui extends JFrame implements Runnable {
         minjcb.addItem("CPS");
         minjcb.addItem("MS");
         minjcb.setEditable(false);
-        gbc.gridx = 4;
+        gbc.gridx = GridBagConstraints.RELATIVE;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
@@ -105,16 +129,16 @@ public class gui extends JFrame implements Runnable {
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);
         slider.setPaintTicks(true);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.gridwidth = 5;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.gridheight = 1;
         cp.setConstraints(slider, gbc);
 
         // 信息窗
         gbc.weightx = 10;// 分布方式为10%
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 3;
