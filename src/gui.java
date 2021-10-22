@@ -45,9 +45,6 @@ public class gui extends JFrame implements Runnable {
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
 
-        // gridx设置为GridBagConstraints.RELATIVE代表此组件位于之前所加入组件的右边
-        // gridy设置为GridBagConstraints.RELATIVE代表此组件位于以前所加入组件的下面
-
         /*
          * // 创建菜单栏 JMenuBar menuBar = new JMenuBar(); // 创建一级菜单 JMenu optionMenu = new
          * JMenu("选项"); JMenu aboutMenu = new JMenu("关于"); // 一级菜单添加到菜单栏
@@ -71,9 +68,9 @@ public class gui extends JFrame implements Runnable {
         // 最大值输入文本框
         max.setPreferredSize(new Dimension(100, 35));
         max.setColumns(16);
-        gbc.gridx = GridBagConstraints.RELATIVE;
+        gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 2;
         gbc.gridheight = 1;
         cp.setConstraints(max, gbc);
 
@@ -81,7 +78,7 @@ public class gui extends JFrame implements Runnable {
         maxjcb.addItem("CPS");
         maxjcb.addItem("MS");
         maxjcb.setEditable(false);
-        gbc.gridx = GridBagConstraints.RELATIVE;
+        gbc.gridx = 4;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
@@ -98,9 +95,9 @@ public class gui extends JFrame implements Runnable {
         // 最小值输入文本框
         min.setPreferredSize(new Dimension(100, 35));// 设置大小
         min.setColumns(16);// 文本框最多可显示内容的列数
-        gbc.gridx = GridBagConstraints.RELATIVE;
+        gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 2;
         gbc.gridheight = 1;
         cp.setConstraints(min, gbc);
 
@@ -108,7 +105,7 @@ public class gui extends JFrame implements Runnable {
         minjcb.addItem("CPS");
         minjcb.addItem("MS");
         minjcb.setEditable(false);
-        gbc.gridx = GridBagConstraints.RELATIVE;
+        gbc.gridx = 4;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
@@ -131,7 +128,7 @@ public class gui extends JFrame implements Runnable {
 
         // 信息窗
         gbc.weightx = 10;// 分布方式为10%
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 3;
@@ -139,9 +136,9 @@ public class gui extends JFrame implements Runnable {
         cp.setConstraints(information, gbc);
 
         // 按钮及按钮事件
-        gbc.gridx = 4;
+        gbc.gridx = 3;
         gbc.gridy = 6;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.gridheight = 1;
         cp.setConstraints(cbutton, gbc);
         cbutton.addActionListener((e) -> {
