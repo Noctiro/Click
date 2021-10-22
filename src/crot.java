@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.event.InputEvent;
 
 public class crot extends Thread {
+    static boolean first = true; // 控制 开/关
     static boolean sors = false; // 控制 开/关
     static int smax;
     static int smin;
@@ -22,12 +23,15 @@ public class crot extends Thread {
         probability = aprobability;
         sors = true;
 
-        // robot
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            // e.printStackTrace();
+        if (first) {
+            try {
+                robot = new Robot();
+            } catch (AWTException e) {
+                e.printStackTrace();
+            }
+            first = false;
         }
+        
         Random r = new Random();
         while (sors) {
             int pbi = r.nextInt(101) + 1;

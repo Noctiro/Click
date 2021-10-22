@@ -24,10 +24,9 @@ public class gui extends JFrame implements Runnable {
     static int getmax;
     static int getmin;
     static int probability;
+    static Boolean first = true;
 
     public static void startgui() {
-        robot.start();// 启动进程
-
         JFrame jf = new JFrame("CLICK");
         jf.setSize(230, 210);// 窗体大小
         jf.setLocationRelativeTo(null); // 设置窗体居中
@@ -195,6 +194,10 @@ public class gui extends JFrame implements Runnable {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
+                if (first) {
+                    robot.start();// 启动进程
+                    first = false;
+                }
                 asors = true;
                 cbutton.setText("停止");
             } else {
@@ -206,7 +209,7 @@ public class gui extends JFrame implements Runnable {
     }
 
     public void run() {
-        for (; asors;) {
+        while (asors) {
             try {
                 crot.start(getmax, getmin, probability);
                 asors = false;
