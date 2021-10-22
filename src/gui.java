@@ -44,27 +44,20 @@ public class gui extends JFrame implements Runnable {
         // HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
-        
-        //gridx设置为GridBagConstraints.RELATIVE代表此组件位于之前所加入组件的右边
-        //gridy设置为GridBagConstraints.RELATIVE代表此组件位于以前所加入组件的下面
-        
-        /*// 创建菜单栏
-        JMenuBar menuBar = new JMenuBar();
-        // 创建一级菜单
-        JMenu optionMenu = new JMenu("选项");
-        JMenu aboutMenu = new JMenu("关于");
-        // 一级菜单添加到菜单栏
-        menuBar.add(optionMenu);
-        menuBar.add(aboutMenu);
-        gbc.insets = new Insets(0, 0, 0, 0);// top left bottom right
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;// 占据本行的所有剩余空间
-        gbc.gridheight = 1;
-        // jf.add(menuBar);*/
-        
+
+        // gridx设置为GridBagConstraints.RELATIVE代表此组件位于之前所加入组件的右边
+        // gridy设置为GridBagConstraints.RELATIVE代表此组件位于以前所加入组件的下面
+
+        /*
+         * // 创建菜单栏 JMenuBar menuBar = new JMenuBar(); // 创建一级菜单 JMenu optionMenu = new
+         * JMenu("选项"); JMenu aboutMenu = new JMenu("关于"); // 一级菜单添加到菜单栏
+         * menuBar.add(optionMenu); menuBar.add(aboutMenu); gbc.insets = new Insets(0,
+         * 0, 0, 0);// top left bottom right gbc.fill = GridBagConstraints.HORIZONTAL;
+         * gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部 gbc.gridx = 0;
+         * gbc.gridy = 0; gbc.gridwidth = GridBagConstraints.REMAINDER;// 占据本行的所有剩余空间
+         * gbc.gridheight = 1; // jf.add(menuBar);
+         */
+
         gbc.insets = new Insets(2, 5, 2, 5);// top left bottom right
 
         JLabel texta = new JLabel("MAX");

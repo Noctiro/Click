@@ -31,7 +31,7 @@ public class crot extends Thread {
             }
             first = false;
         }
-        
+
         Random r = new Random();
         while (sors) {
             int pbi = r.nextInt(101) + 1;
