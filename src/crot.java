@@ -42,14 +42,14 @@ public class crot extends Thread {
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);// 松开左键
                 amount = amount + 1;// 计数器
                 System.out.print("-" + rdelay);
-                gui.information.setText("NOW: " + rdelay + " ms");
+                gui.information.setText("NOW: " + rdelay + " ms (Amount " + amount + ")");
                 robot.delay(rdelay);// 间隔时间, 使用上面获得的随机数\
             } else if (pbi != 0 && pbi <= probability) {
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);// 按下左键
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);// 松开左键
                 amount = amount + 1;// 计数器
                 System.out.print("-" + np);
-                gui.information.setText("NOW: " + np + " ms");
+                gui.information.setText("NOW: " + np + " ms (Amount " + amount + ")");
                 robot.delay(np);// 间隔时间, 使用上面获得的随机数
             }
         }
