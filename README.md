@@ -1,20 +1,20 @@
-#CLICK
+# CLICK
 
 ## 简介
 
-欢迎使用我制作的这款连点器，这是我第一个公开发布的Java项目。我是初学者，感谢支持。
+欢迎使用我制作的这款连点器。
 
-## 如何使用?
+## 如何使用？
 
-The workspace contains two folders by default, where:
+你可以使用 `java -jar click.jar`来使用此软件
+也可以使用 启动参数 来启动软件(见下)
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## 启动参数
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- `-max <int>`: 最大值 单位:ms
+- `-min <int>`: 最小值 单位:ms
+- `-probability <int>`: 改变间隔ms的概率 单位:%
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+如果你忘记有什么参数, 可使用 `help` 来查看帮助
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+> 正在写中
