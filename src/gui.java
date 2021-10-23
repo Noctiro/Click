@@ -234,7 +234,7 @@ public class gui extends JFrame implements Runnable {
             num++;
         }
         if (dmin != null && dmin.matches(regex)) {
-            max.setText(dmin);
+            min.setText(dmin);
             num++;
         }
         if (dp != null) {
