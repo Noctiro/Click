@@ -23,7 +23,7 @@ public class gui extends JFrame implements Runnable {
     static JLabel information = new JLabel("");
     static Thread robot = new Thread(new gui());
 
-    static boolean asors = false; // 控制 开/关
+    volatile static boolean asors = false; // 控制 开/关
     static int getmax;
     static int getmin;
     static int probability;
@@ -45,15 +45,22 @@ public class gui extends JFrame implements Runnable {
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
 
-        /*
-         * // 创建菜单栏 JMenuBar menuBar = new JMenuBar(); // 创建一级菜单 JMenu optionMenu = new
-         * JMenu("选项"); JMenu aboutMenu = new JMenu("关于"); // 一级菜单添加到菜单栏
-         * menuBar.add(optionMenu); menuBar.add(aboutMenu); gbc.insets = new Insets(0,
-         * 0, 0, 0);// top left bottom right gbc.fill = GridBagConstraints.HORIZONTAL;
-         * gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部 gbc.gridx = 0;
-         * gbc.gridy = 0; gbc.gridwidth = GridBagConstraints.REMAINDER;// 占据本行的所有剩余空间
-         * gbc.gridheight = 1; // jf.add(menuBar);
-         */
+        // 创建菜单栏 
+        JMenuBar menuBar = new JMenuBar();
+        // 创建一级菜单 
+        JMenu optionMenu = new JMenu("选项"); 
+        JMenu aboutMenu = new JMenu("关于"); 
+        // 一级菜单添加到菜单栏
+        menuBar.add(optionMenu); 
+        menuBar.add(aboutMenu); 
+        gbc.insets = new Insets(0, 0, 0, 0);// top left bottom right 
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部 
+        gbc.gridx = 0;
+        gbc.gridy = 0; 
+        gbc.gridwidth = GridBagConstraints.REMAINDER;// 占据本行的所有剩余空间
+        gbc.gridheight = 1; 
+        // jf.add(menuBar);
 
         gbc.insets = new Insets(2, 5, 2, 5);// top left bottom right
 
@@ -145,7 +152,6 @@ public class gui extends JFrame implements Runnable {
             if (ssarop) {
                 ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
                 crot.cstop();
-                information.setText("关闭中");
                 max.setEditable(true);
                 min.setEditable(true);
                 cbutton.setText("开始");
@@ -205,11 +211,11 @@ public class gui extends JFrame implements Runnable {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
+                asors = true;
                 if (first) {
                     robot.start();// 启动进程
                     first = false;
                 }
-                asors = true;
                 cbutton.setText("停止");
             } else {
                 JOptionPane.showMessageDialog(null, "请核对你输入的最大值和最小值", "错误", JOptionPane.ERROR_MESSAGE);
