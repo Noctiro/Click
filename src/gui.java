@@ -22,6 +22,10 @@ public class gui extends JFrame implements Runnable {
     static Boolean ssarop = false;// 开始/结束 判断
     static JLabel information = new JLabel("");
 
+    //单位
+    static JComboBox<String> maxjcb = new JComboBox<String>();
+    static JComboBox<String> minjcb = new JComboBox<String>();
+
     static volatile boolean asors = false; // 控制 开/关
     static int getmax;
     static int getmin;
@@ -80,7 +84,6 @@ public class gui extends JFrame implements Runnable {
         gbc.gridheight = 1;
         cp.setConstraints(max, gbc);
 
-        JComboBox<String> maxjcb = new JComboBox<String>();
         maxjcb.addItem("CPS");
         maxjcb.addItem("MS");
         maxjcb.setEditable(false);
@@ -107,7 +110,6 @@ public class gui extends JFrame implements Runnable {
         gbc.gridheight = 1;
         cp.setConstraints(min, gbc);
 
-        JComboBox<String> minjcb = new JComboBox<String>();
         minjcb.addItem("CPS");
         minjcb.addItem("MS");
         minjcb.setEditable(false);
@@ -176,6 +178,7 @@ public class gui extends JFrame implements Runnable {
         jf.add(cbutton);
 
         jf.setVisible(true);// 显示界面
+        parameters();
     }
 
     // 按钮事件--是否要开始判断
@@ -220,6 +223,35 @@ public class gui extends JFrame implements Runnable {
         }
     }
 
+    public static void parameters() {
+        int num = 0;
+        String regex = "^[1-9][0-9]*(\\.\\d+)?$";
+        String dmax = System.getProperty("max") ;
+        String dmin = System.getProperty("min") ;
+        String dp = System.getProperty("p") ;
+        if (dmax != null && dmax.matches(regex)) {
+            max.setText(dmax);
+            num++;
+        }
+        if (dmin != null && dmin.matches(regex)) {
+            max.setText(dmin);
+            num++;
+        }
+        if (dp != null) {
+            int dpt = Integer.parseInt(dp);
+            if (dpt > 0 && dpt <= 100) {
+                slider.setValue(dpt);
+                num++;
+            }
+        }
+        if (num == 3) {
+            String amax = max.getText();
+            String amin = min.getText();
+            String smaxjcb = "MS";
+            String sminjcb = "MS";
+            cbutton(amax, amin, smaxjcb, sminjcb);
+        }
+    }
     public void run() {
         // bug
         while (asors) {
