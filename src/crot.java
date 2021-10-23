@@ -13,7 +13,7 @@ public class crot extends Thread {
     static int amount = 0;
     static Robot robot;
 
-    public static void start(int imax, int imin, int aprobability) throws InterruptedException {
+    public static void cstart(int imax, int imin, int aprobability) throws InterruptedException {
         System.out.println("---------");
         System.out.println("max " + imax + "ms");
         System.out.println("min " + imin + "ms");
@@ -55,11 +55,12 @@ public class crot extends Thread {
         }
     }
 
-    public static int cstop() {
+    public static void cstop() {
         sors = false;
-        System.gc();
-        int toamount = amount;
+        gui.information.setText("此次共点击 " + amount + " 下");
+        System.out.println("\n此次共点击 " + amount + " 下");
+        System.out.println("---------");
         amount = 0;// 计数器清零
-        return toamount;// 返回值
+        System.gc();
     }
 }

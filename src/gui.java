@@ -144,13 +144,10 @@ public class gui extends JFrame implements Runnable {
         cbutton.addActionListener((e) -> {
             if (ssarop) {
                 ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
+                crot.cstop();
                 information.setText("关闭中");
-                int amount = crot.cstop();
                 max.setEditable(true);
                 min.setEditable(true);
-                information.setText("此次共点击 " + amount + " 下");
-                System.out.println("\n此次共点击 " + amount + " 下");
-                System.out.println("---------");
                 cbutton.setText("开始");
             } else {
                 String amax = max.getText();
@@ -225,7 +222,7 @@ public class gui extends JFrame implements Runnable {
     public void run() {
         while (asors) {
             try {
-                crot.start(getmax, getmin, probability);
+                crot.cstart(getmax, getmin, probability);
                 asors = false;
             } catch (InterruptedException e) {
                 e.printStackTrace();
