@@ -201,10 +201,11 @@ public class gui extends JFrame implements Runnable {
             } else if (minjcb == "MS") {
             }
             if (getmax < getmin) {
-                information.setText("倒计时 3 秒");
-                ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(false);// 禁止文本输入框改变文本
                 min.setEditable(false);
+                cbutton.setText("停止");
+                information.setText("倒计时 3 秒");
+                ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
                 try {
                     Thread.sleep(3000);
                     information.setText("连点器已开启");
@@ -214,7 +215,6 @@ public class gui extends JFrame implements Runnable {
                 asors = true;
                 robot = new Thread(new gui());
                 robot.start();
-                cbutton.setText("停止");
             } else {
                 JOptionPane.showMessageDialog(null, "请核对你输入的最大值和最小值", "错误", JOptionPane.ERROR_MESSAGE);
             }
