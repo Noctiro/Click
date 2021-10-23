@@ -22,7 +22,7 @@ public class gui extends JFrame implements Runnable {
     static Boolean ssarop = false;// 开始/结束 判断
     static JLabel information = new JLabel("");
 
-    //单位
+    // 单位
     static JComboBox<String> maxjcb = new JComboBox<String>();
     static JComboBox<String> minjcb = new JComboBox<String>();
 
@@ -226,9 +226,9 @@ public class gui extends JFrame implements Runnable {
     public static void parameters() {
         int num = 0;
         String regex = "^[1-9][0-9]*(\\.\\d+)?$";
-        String dmax = System.getProperty("max") ;
-        String dmin = System.getProperty("min") ;
-        String dp = System.getProperty("p") ;
+        String dmax = System.getProperty("max");
+        String dmin = System.getProperty("min");
+        String dp = System.getProperty("p");
         if (dmax != null && dmax.matches(regex)) {
             max.setText(dmax);
             num++;
@@ -252,6 +252,7 @@ public class gui extends JFrame implements Runnable {
             cbutton(amax, amin, smaxjcb, sminjcb);
         }
     }
+
     public void run() {
         // bug
         while (asors) {
