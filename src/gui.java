@@ -226,6 +226,7 @@ public class gui extends JFrame implements Runnable {
     }
 
     public void run() {
+        // bug
         while (asors) {
             try {
                 crot.cstart(getmax, getmin, probability);
