@@ -21,13 +21,12 @@ public class gui extends JFrame implements Runnable {
     static JSlider slider = new JSlider(0, 100);// 概率滑块
     static Boolean ssarop = false;// 开始/结束 判断
     static JLabel information = new JLabel("");
-    static Thread robot = new Thread(new gui());
 
-    volatile static boolean asors = false; // 控制 开/关
+    static volatile boolean asors = false; // 控制 开/关
     static int getmax;
     static int getmin;
     static int probability;
-    static Boolean first = true;
+    static Thread robot;
 
     public static void startgui() {
         JFrame jf = new JFrame("CLICK");
@@ -45,21 +44,21 @@ public class gui extends JFrame implements Runnable {
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
 
-        // 创建菜单栏 
+        // 创建菜单栏
         JMenuBar menuBar = new JMenuBar();
-        // 创建一级菜单 
-        JMenu optionMenu = new JMenu("选项"); 
-        JMenu aboutMenu = new JMenu("关于"); 
+        // 创建一级菜单
+        JMenu optionMenu = new JMenu("选项");
+        JMenu aboutMenu = new JMenu("关于");
         // 一级菜单添加到菜单栏
-        menuBar.add(optionMenu); 
-        menuBar.add(aboutMenu); 
-        gbc.insets = new Insets(0, 0, 0, 0);// top left bottom right 
+        menuBar.add(optionMenu);
+        menuBar.add(aboutMenu);
+        gbc.insets = new Insets(0, 0, 0, 0);// top left bottom right
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部 
+        gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部
         gbc.gridx = 0;
-        gbc.gridy = 0; 
+        gbc.gridy = 0;
         gbc.gridwidth = GridBagConstraints.REMAINDER;// 占据本行的所有剩余空间
-        gbc.gridheight = 1; 
+        gbc.gridheight = 1;
         // jf.add(menuBar);
 
         gbc.insets = new Insets(2, 5, 2, 5);// top left bottom right
@@ -158,7 +157,7 @@ public class gui extends JFrame implements Runnable {
             } else {
                 String amax = max.getText();
                 String amin = min.getText();
-                String smaxjcb = (String) maxjcb.getSelectedItem();
+                String smaxjcb = (String) maxjcb.getSelectedItem();// 获得选项(选择的单位)
                 String sminjcb = (String) minjcb.getSelectedItem();
                 cbutton(amax, amin, smaxjcb, sminjcb);
             }
@@ -197,25 +196,19 @@ public class gui extends JFrame implements Runnable {
             } else if (minjcb == "MS") {
             }
             if (getmax < getmin) {
+                information.setText("倒计时 3 秒");
                 ssarop = true;// 当为false时, 按钮为"开始",反之则"停止"
                 max.setEditable(false);// 禁止文本输入框改变文本
                 min.setEditable(false);
                 try {
-                    information.setText("倒计时 3 秒");
-                    Thread.sleep(1000);
-                    information.setText("倒计时 2 秒");
-                    Thread.sleep(1000);
-                    information.setText("倒计时 1 秒");
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                     information.setText("连点器已开启");
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
                 asors = true;
-                if (first) {
-                    robot.start();// 启动进程
-                    first = false;
-                }
+                robot = new Thread(new gui());
+                robot.start();
                 cbutton.setText("停止");
             } else {
                 JOptionPane.showMessageDialog(null, "请核对你输入的最大值和最小值", "错误", JOptionPane.ERROR_MESSAGE);
