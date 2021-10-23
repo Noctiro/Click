@@ -61,6 +61,5 @@ public class crot extends Thread {
         System.out.println("\n此次共点击 " + amount + " 下");
         System.out.println("---------");
         amount = 0;// 计数器清零
-        System.gc();
     }
 }

@@ -151,8 +151,10 @@ public class gui extends JFrame implements Runnable {
             if (ssarop) {
                 ssarop = false;// 当为false时, 按钮为"开始",反之则"停止"
                 crot.cstop();
+                robot.interrupt();
                 max.setEditable(true);
                 min.setEditable(true);
+                System.gc();
                 cbutton.setText("开始");
             } else {
                 String amax = max.getText();
