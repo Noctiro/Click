@@ -55,7 +55,8 @@ public class gui extends JFrame implements Runnable {
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
         // icon
-        ImageIcon icon = new ImageIcon("logo.png");
+        ImageIcon icon = new ImageIcon(
+                Thread.currentThread().getContextClassLoader().getResource("images/logo.png").getFile());
         jf.setIconImage(icon.getImage());
 
         // GridBagLayout
@@ -227,7 +228,7 @@ public class gui extends JFrame implements Runnable {
         }
     }
 
-    public static void parameters() {
+    private static void parameters() {
         int num = 0;
         String regex = "^[1-9][0-9]*(\\.\\d+)?$";
         String dmax = System.getProperty("max");
@@ -257,7 +258,7 @@ public class gui extends JFrame implements Runnable {
         }
     }
 
-    public static void menu() {
+    private static void menu() {
         // 创建菜单栏
         JMenuBar menuBar = new JMenuBar();
         // 创建一级菜单
