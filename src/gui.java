@@ -187,7 +187,7 @@ public class gui extends JFrame implements Runnable {
     }
 
     // 按钮事件--是否要开始判断
-    protected static void cbutton(String nmax, String nmin, String maxjcb, String minjcb) {
+    private static void cbutton(String nmax, String nmin, String maxjcb, String minjcb) {
         // 判断是否是非零非负数
         // 原表达式 ^[1-9][0-9]*(\.\d+)?$
         String regex = "^[1-9][0-9]*(\\.\\d+)?$";
