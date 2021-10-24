@@ -27,7 +27,6 @@ import javax.swing.JTextField;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javax.swing.JOptionPane;
 
 public class gui extends JFrame implements Runnable {
     static JFrame jf = new JFrame("CLICK");
@@ -56,7 +55,7 @@ public class gui extends JFrame implements Runnable {
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
         // icon
-        ImageIcon icon = new ImageIcon("src/images/logo.png");
+        ImageIcon icon = new ImageIcon("images/logo.png");
         jf.setIconImage(icon.getImage());
 
         // GridBagLayout
@@ -382,7 +381,7 @@ public class gui extends JFrame implements Runnable {
             InvocationTargetException, IOException, NoSuchMethodException {
         String osName = System.getProperty("os.name", "");
         if (osName.startsWith("Mac OS")) {
-            Class fileMgr = Class.forName("com.apple.eio.FileManager");
+            Class<?> fileMgr = Class.forName("com.apple.eio.FileManager");
             Method openURL = fileMgr.getDeclaredMethod("openURL", new Class[] { String.class });
             openURL.invoke(null, new Object[] { url });
         } else if (osName.startsWith("Windows")) {
