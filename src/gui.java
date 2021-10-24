@@ -55,7 +55,7 @@ public class gui extends JFrame implements Runnable {
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
         // icon
-        ImageIcon icon = new ImageIcon("images/logo.png");
+        ImageIcon icon = new ImageIcon("logo.png");
         jf.setIconImage(icon.getImage());
 
         // GridBagLayout
