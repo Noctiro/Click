@@ -2,19 +2,35 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JSlider;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import javax.swing.JOptionPane;
 
 public class gui extends JFrame implements Runnable {
+    static JFrame jf = new JFrame("CLICK");
     static JButton cbutton = new JButton("确定");// 开始/结束 按钮
     static final JTextField max = new JTextField();// 最大值输入框
     static final JTextField min = new JTextField();// 最小值输入框
@@ -32,12 +48,16 @@ public class gui extends JFrame implements Runnable {
     static int probability;
     static Thread robot;
 
+    static JMenu theme = new JMenu("主题");// 一旦有子类，则为菜单，非菜单项
+
     public static void startgui() {
-        JFrame jf = new JFrame("CLICK");
-        jf.setSize(230, 210);// 窗体大小
+        jf.setSize(230, 230);// 窗体大小
         jf.setLocationRelativeTo(null); // 设置窗体居中
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗体事件
         jf.setResizable(true);// 禁止修改大小
+        // icon
+        ImageIcon icon = new ImageIcon("src/images/logo.png");
+        jf.setIconImage(icon.getImage());
 
         // GridBagLayout
         GridBagLayout cp = new GridBagLayout(); // 实例化布局对象
@@ -48,27 +68,12 @@ public class gui extends JFrame implements Runnable {
         // VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
         // BOTH：使组件完全填满其显示区域。
 
-        // 创建菜单栏
-        JMenuBar menuBar = new JMenuBar();
-        // 创建一级菜单
-        JMenu optionMenu = new JMenu("选项");
-        JMenu aboutMenu = new JMenu("关于");
-        // 一级菜单添加到菜单栏
-        menuBar.add(optionMenu);
-        menuBar.add(aboutMenu);
-        gbc.insets = new Insets(0, 0, 0, 0);// top left bottom right
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTH;// 当组件没有空间大时，使组件处在北部
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;// 占据本行的所有剩余空间
-        gbc.gridheight = 1;
-        // jf.add(menuBar);
+        menu(); // 菜单栏
 
         gbc.insets = new Insets(2, 5, 2, 5);// top left bottom right
 
         JLabel texta = new JLabel("MAX");
-        gbc.weightx = 10;// 第一列的分布方式为10%
+        gbc.weightx = 10;// 第一列分布方式为10%
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -250,6 +255,148 @@ public class gui extends JFrame implements Runnable {
             String smaxjcb = "MS";
             String sminjcb = "MS";
             cbutton(amax, amin, smaxjcb, sminjcb);
+        }
+    }
+
+    public static void menu() {
+        // 创建菜单栏
+        JMenuBar menuBar = new JMenuBar();
+        // 创建一级菜单
+        JMenu optionMenu = new JMenu("选项");
+        JMenu aboutMenu = new JMenu("关于");
+
+        themes();// 主题
+
+        JCheckBoxMenuItem ontop = new JCheckBoxMenuItem("置顶", false);
+        ontop.addItemListener((ItemListener) new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (ontop.getState()) {
+                    jf.setAlwaysOnTop(true);
+                } else {
+                    jf.setAlwaysOnTop(false);
+                }
+            }
+        });
+
+        JMenuItem exitMenu = new JMenuItem("退出");
+        exitMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+
+            }
+        });
+        JMenuItem igithub = new JMenuItem("Github地址");
+        igithub.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    browse("https://github.com/ObcbO/click");
+                } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
+                        | InvocationTargetException | NoSuchMethodException | InterruptedException | IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        JMenuItem about = new JMenuItem("关于");
+        about.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "CLICK - v0.0.2\n作者: ObcbO", "关于", JOptionPane.INFORMATION_MESSAGE,
+                        null);
+            }
+        });
+        menuBar.add(optionMenu);
+        menuBar.add(aboutMenu);
+
+        optionMenu.add(theme);
+        optionMenu.add(ontop);
+        optionMenu.addSeparator();// 添加一个分割线
+        optionMenu.add(exitMenu);
+
+        aboutMenu.add(igithub);
+        aboutMenu.add(about);
+
+        jf.setJMenuBar(menuBar);
+    }
+
+    private static void themes() {
+        JRadioButton Metal = new JRadioButton("Metal");
+        JRadioButton Windows = new JRadioButton("Windows (默认)", true);
+        JRadioButton WindowsClassic = new JRadioButton("Windows Classic");
+        JRadioButton Motif = new JRadioButton("Motif");
+        ButtonGroup gtheme = new ButtonGroup();
+        gtheme.add(Metal);
+        gtheme.add(Windows);
+        gtheme.add(WindowsClassic);
+        gtheme.add(Motif);
+        theme.add(Metal);
+        theme.add(Windows);
+        theme.add(WindowsClassic);
+        theme.add(Motif);
+        Metal.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                try {
+                    UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                        | UnsupportedLookAndFeelException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        Windows.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                        | UnsupportedLookAndFeelException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        WindowsClassic.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                        | UnsupportedLookAndFeelException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        Motif.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                        | UnsupportedLookAndFeelException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private static void browse(String url)
+            throws ClassNotFoundException, IllegalAccessException, IllegalArgumentException, InterruptedException,
+            InvocationTargetException, IOException, NoSuchMethodException {
+        String osName = System.getProperty("os.name", "");
+        if (osName.startsWith("Mac OS")) {
+            Class fileMgr = Class.forName("com.apple.eio.FileManager");
+            Method openURL = fileMgr.getDeclaredMethod("openURL", new Class[] { String.class });
+            openURL.invoke(null, new Object[] { url });
+        } else if (osName.startsWith("Windows")) {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+        } else { // assume Unix or Linux
+            String[] browsers = { "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape" };
+            String browser = null;
+            for (int count = 0; count < browsers.length && browser == null; count++)
+                if (Runtime.getRuntime().exec(new String[] { "which", browsers[count] }).waitFor() == 0)
+                    browser = browsers[count];
+            if (browser == null)
+                throw new NoSuchMethodException("Could not find web browser");
+            else
+                Runtime.getRuntime().exec(new String[] { browser, url });
         }
     }
 
