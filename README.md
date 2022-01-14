@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/ObcbO/click/master/src/images/logo.png" alt="Hexo logo" width="100" height="100" align="right" />
+<img src="https://raw.githubusercontent.com/ObcbO/click/master/src/images/logo.png" alt="logo" width="100" height="100" align="right" />
 
 # CLICK
 
