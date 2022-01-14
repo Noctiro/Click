@@ -1,8 +1,10 @@
+<img src="https://raw.githubusercontent.com/ObcbO/click/master/src/images/logo.png" alt="Hexo logo" width="100" height="100" align="right" />
+
 # CLICK
 
 ## 简介
 
-这是一款带有 设置最大值最小值 改变点击频率概率 的防检测连点器
+这是一款带有 `设置最大值最小值` `改变点击频率概率` 而且还带`GUI`防检测连点器
 
 代码可能有些繁琐，欢迎给出意见
 
